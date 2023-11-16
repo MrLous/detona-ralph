@@ -1,0 +1,90 @@
+body{
+    color: aliceblue;
+    background-color: #646464;
+}
+
+.conteiner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2%;
+    height: 90px;
+    width: 100%;
+    background-color: rgb(58, 57, 57);
+}
+
+.meuScore{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.menuTime{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+h2{
+    font-size: 20px;
+    margin: 5px;
+}
+
+.title{
+    color:#ad0909;
+}
+
+ul{
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+a img{
+    width: 30px;
+    margin: 4px;
+}
+
+a img:hover {
+    transition-duration: 300ms;
+    translate: 0px -2px;
+}
+
+.panel{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.square{
+    background-image: url("/src/img/game/bloco.svg");
+    background-size: contain;
+    height: 150px;
+    width: 150px;
+    border: 1px solid #000000;
+
+
+}
+
+.enemy{
+    background-image: url('/src/img/game/detonaRalph.svg');
+    background-size:contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #4b0303b3;
+}
+
+.contact{
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
