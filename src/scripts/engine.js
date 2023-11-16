@@ -23,7 +23,8 @@ function contDown() {
     state.values.curretTime--
     state.view.timeLeft.textContent = state.values.curretTime;
     if (state.values.curretTime <= 0) {
-        alert("Fim de Jogo! \n score: "+state.values.score)
+        alert("Fim de Jogo! \n score: "+state.values.score);
+        resetGame();
     }
 }
 
