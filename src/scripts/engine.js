@@ -87,7 +87,7 @@ function contDown() {
         state.view.squares[4].classList.remove("init");
     }
     //sound for end of game
-    if (state.values.curretTime == 46) {
+    if (state.values.curretTime == 15) {
         soudsFinalTime.play();
         state.values.gameVelocity = 400;
 
