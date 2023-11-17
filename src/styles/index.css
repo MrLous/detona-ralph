@@ -33,6 +33,10 @@ body{
 
 }
 
+.menuLives img{
+    width: 15%;
+}
+
 h2{
     font-size: 20px;
     margin: 5px;
@@ -70,8 +74,6 @@ a img:hover {
     height: 150px;
     width: 150px;
     border: 1px solid #000000;
-
-
 }
 
 .enemy{
@@ -82,9 +84,31 @@ a img:hover {
     background-color: #4b0303b3;
 }
 
+.init{
+    background-image: url('/src/img/game/logo.svg');
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: bottom ;
+    background-color: rgba(15, 75, 3, 0.702);
+    padding-top: 2%;
+    text-align: center;
+    justify-content: center;
+}
+
+.gameOver{
+    background-image: none;
+    background-color: rgb(0, 0, 0);
+    padding-top: 20%;
+    text-align: center;
+    justify-content: center;;
+
+}
+
 .contact{
     margin: 50px;
+    padding: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+

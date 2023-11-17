@@ -14,24 +14,41 @@ const state = {
         hitPosition: 0,
         score:0,
         lives:3,
-        curretTime: 60,
+        curretTime: 70,
+        timerInit: 5,
     }
     
 };
+//souds
+const soudsHit = new Audio("./src/souds/coin.mp3");
 
-function contDown() {
-    state.values.curretTime--
-    state.view.timeLeft.textContent = state.values.curretTime;
-    if (state.values.curretTime <= 0) {
-        alert("Fim de Jogo! \n score: "+state.values.score);
-        resetGame();
-    }
+const soudsHitFail = new Audio("./src/souds/rock-impact.m4a");
+
+const soudsFail = new Audio("./src/souds/fail.mp3");
+
+const soudsAlert = new Audio("./src/souds/Alerta - Emergência.mp3");
+
+const soudsFinalTime = new Audio("./src/souds/impossivel.mp3");
+
+function resetGame(){
+    removeRalph();
+    state.values.lives = 3
+    state.view.lives.textContent = "x" + state.values.lives;
+    state.values.curretTime = 70;
+    state.view.timeLeft.textContent = 60;
+    state.values.score = 0;
+    state.view.score.textContent = state.values.score;
+    state.values.gameVelocity = 1000;
 }
 
-function randomSquare(){
+function removeRalph() {
     state.view.squares.forEach((square) => {
         square.classList.remove("enemy");
     })
+}
+
+function randomSquare(){
+    removeRalph();
     let randomNumer = Math.floor(Math.random() * 9);
     let randomSquare = state.view.squares[randomNumer];
     randomSquare.classList.add("enemy");
@@ -39,42 +56,76 @@ function randomSquare(){
 }
 
 function moveEnemy() {
-    state.values.timerId = setInterval(randomSquare, state.values.gameVelocity)
+    state.values.timerId = setInterval(state.values.gameVelocity)
 }
 
-function resetGame(){
-    state.values.lives = 3
-    state.view.lives.textContent = "x" + state.values.lives;
-    state.values.curretTime = 60
-    state.view.timeLeft.textContent = state.values.curretTime;
-    state.values.score = 0;
-    state.view.score.textContent = state.values.score;
+function contDown() {
+    state.values.curretTime--
+    if (state.values.curretTime <= 0) {
+        soudsFinalTime.pause();
+        state.view.squares[4].classList.add("gameOver");
+        state.view.squares[4].textContent = "Fim de Jogo! score: "+state.values.score;
+        resetGame();
+    } else if(state.values.curretTime<= 60) {
+        randomSquare();
+        state.view.timeLeft.textContent = state.values.curretTime;
+    } 
+    
+    if (state.values.curretTime == 65) {
+        state.view.squares[4].classList.remove("gameOver");
+        state.view.squares[4].classList.add("init");
+        state.view.squares[4].textContent = "ready!";
+    }
+    //alerte for start game
+    if (state.values.curretTime == 64) {
+        soudsAlert.currentTime = 4;
+        soudsAlert.play();
+    }
+    // start remuve message
+    if(state.values.curretTime == 60) { 
+        state.view.squares[4].textContent = "";
+        state.view.squares[4].classList.remove("init");
+    }
+    //sound for end of game
+    if (state.values.curretTime == 46) {
+        soudsFinalTime.play();
+        state.values.gameVelocity = 400;
 
+    }
 }
 
 function addListenerHitBox(){
     state.view.squares.forEach((square) => {
         square.addEventListener("mousedown", () => {
             if(square.id === state.values.hitPosition){
+                soudsHit.play();
                 state.values.score++;
                 state.view.score.textContent = state.values.score;
                 state.values.hitPosition=null;
+                removeRalph();
             }else{
                 state.values.lives--;
                 state.view.lives.textContent = "x" + state.values.lives;
                 state.values.hitPosition=null;
                 if (state.values.lives < 0) {
-                    alert("Game Over! \n score: "+state.values.score)
+                    soudsFail.play();
+                    soudsFinalTime.pause();
+                    state.view.squares[4].classList.add("gameOver");
+                    state.view.squares[4].textContent = "Game Over! score: "+state.values.score;
                     resetGame();
-                }                
+                } else{
+                    soudsHitFail.play();
+                }               
             }
         })
     })
 }
 
 function initialize() {
+    state.view.squares[4].classList.add("init");
     moveEnemy();
     addListenerHitBox();
+    contDown();
 }
 
 initialize();
